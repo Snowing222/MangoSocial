@@ -6,8 +6,10 @@ const {SECRET_KEY}  = require('../config');
 
 module.exports = (context) =>{
     // context = {...headers}
-    const authHeader = context.req.header.authorization;
+    const authHeader = context.req.headers.authorization;
+    console.log(context.req.headers)
     if(authHeader){
+       
         const token = authHeader.split('Bearer ')[1];
         if(token){
             try{
@@ -19,5 +21,5 @@ module.exports = (context) =>{
         }
         throw new Error('Authentication token must be \'Bearer [token]')
     }
-    throw new Error('Authentication header must be provided')
+    throw new Error('Authorization header must be provided')
 }
